@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -8,11 +8,6 @@ function App() {
     const [username, setUsername] = useState('');
     const [serverIP, setServerIP] = useState('');
     const [isConnected, setIsConnected] = useState(false);
-    const messagesEndRef = useRef(null);
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    };
 
     useEffect(() => {
         if (serverIP) {
@@ -22,9 +17,6 @@ function App() {
         }
     }, [serverIP]);
 
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
 
     const fetchMessages = async () => {
         try {
@@ -103,7 +95,7 @@ function App() {
                         <p>{msg.message}</p>
                     </div>
                 ))}
-                <div ref={messagesEndRef} />
+                {/* Removed messagesEndRef div */}
             </div>
 
             <form onSubmit={handleSubmit} className="message-form">
