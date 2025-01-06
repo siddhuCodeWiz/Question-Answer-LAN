@@ -138,8 +138,6 @@ function App() {
     useEffect(() => {
         if (serverIP) {
             fetchMessages();
-            const interval = setInterval(fetchMessages, 1000);
-            return () => clearInterval(interval);
         }
     }, [serverIP]);
 
@@ -168,7 +166,7 @@ function App() {
                     message: newMessage,
                 });
                 setNewMessage('');
-                fetchMessages();
+                fetchMessages(); // Fetch messages after sending a new one
             } catch (error) {
                 console.error('Error sending message:', error);
             }
@@ -228,6 +226,9 @@ function App() {
             <div className="chat-header">
                 <h2>LAN Chat</h2>
                 <span>Connected as: {username}</span>
+                <button onClick={fetchMessages} className="refresh-button">
+                    Refresh Messages
+                </button>
             </div>
 
             <div className="messages-container">

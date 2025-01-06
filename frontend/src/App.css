@@ -109,3 +109,16 @@ button {
 button:hover {
     background: #0056b3;
 }
+
+.refresh-button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    background-color: #0b007e;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.refresh-button:hover {
+    background-color: #2f2a94;
+}
