@@ -49,19 +49,14 @@
     padding: 10px;
     border-radius: 8px;
     max-width: 70%;
-    cursor: pointer;
-}
-
-.message:hover{
-    background-color: #5992e3;
 }
 
 .message p {
     margin: 0;
-    white-space: pre-wrap;  /* Preserves whitespace and line breaks */
-    word-wrap: break-word;  /* Ensures long words don't overflow */
+    white-space: pre-wrap;
+    word-wrap: break-word;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    line-height: 1.5;      /* Improves readability */
+    line-height: 1.5;
 }
 
 .my-message {
@@ -89,25 +84,15 @@
     border-top: 1px solid #ddd;
 }
 
-.message-form input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-right: 10px;
-    font-family: inherit;  /* Uses the same font as messages */
-}
-
-/* Added styles for the message input */
 .message-form textarea {
     flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-right: 10px;
-    resize: vertical;     /* Allows vertical resizing only */
+    resize: vertical;
     min-height: 40px;
-    max-height: 150px;    /* Prevents textarea from getting too tall */
+    max-height: 150px;
     font-family: inherit;
     line-height: 1.5;
 }

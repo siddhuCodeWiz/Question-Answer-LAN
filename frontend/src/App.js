@@ -165,7 +165,7 @@ function App() {
             try {
                 await axios.post(`http://${serverIP}:5000/api/messages`, {
                     username,
-                    message: newMessage
+                    message: newMessage,
                 });
                 setNewMessage('');
                 fetchMessages();
@@ -175,15 +175,27 @@ function App() {
         }
     };
 
-    // Function to handle copying message text
     const copyMessage = (text) => {
-        navigator.clipboard.writeText(text)
-            .then(() => {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text)
+                .then(() => alert('Message copied to clipboard!'))
+                .catch((err) => console.error('Failed to copy message:', err));
+        } else {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
                 alert('Message copied to clipboard!');
-            })
-            .catch((err) => {
-                console.error('Failed to copy message:', err);
-            });
+            } catch (err) {
+                console.error('Fallback: Unable to copy', err);
+            }
+            document.body.removeChild(textArea);
+        }
     };
 
     if (!isConnected) {
@@ -217,17 +229,17 @@ function App() {
                 <h2>LAN Chat</h2>
                 <span>Connected as: {username}</span>
             </div>
-            
+
             <div className="messages-container">
                 {messages.map((msg, index) => (
                     <div
                         key={index}
                         className={`message ${msg.username === username ? 'my-message' : 'other-message'}`}
-                        onClick={() => copyMessage(msg.message)} // Add onClick event to copy message
+                        onClick={() => copyMessage(msg.message)}
                     >
                         <div className="message-header">
                             <strong>{msg.username}</strong>
-                            <small>{new Date(msg.timestamp).toLocaleTimeString()}</small>
+                            <small>{msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : 'N/A'}</small>
                         </div>
                         <p>{msg.message}</p>
                     </div>
@@ -239,7 +251,7 @@ function App() {
                     placeholder="Type your message..."
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyPress={(e) => {
+                    onKeyDown={(e) => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                             e.preventDefault();
                             handleSubmit(e);
