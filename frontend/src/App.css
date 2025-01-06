@@ -49,6 +49,11 @@
     padding: 10px;
     border-radius: 8px;
     max-width: 70%;
+    cursor: pointer;
+}
+
+.message:hover{
+    background-color: #5992e3;
 }
 
 .message p {
